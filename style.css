@@ -1,0 +1,134 @@
+/* Custom styles for the Inter font and overall look */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f4f8; /* Light blue-gray background */
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+.card {
+    background-color: #ffffff;
+    border-radius: 1rem; /* More rounded corners */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.file-input-label {
+    display: inline-block;
+    background-color: #4f46e5; /* Indigo */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+}
+.file-input-label:hover {
+    background-color: #4338ca; /* Darker indigo on hover */
+}
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+.media-item {
+    position: relative;
+    background-color: #edf2f7; /* Light gray */
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+}
+.media-item img, .media-item video {
+    width: 100%;
+    height: 150px; /* Fixed height for consistency */
+    object-fit: contain; /* Ensure content fits without cropping */
+    border-radius: 0.5rem;
+    background-color: #d1d5db; /* Even lighter gray for media background */
+}
+.media-item .delete-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: #ef4444; /* Red */
+    color: white;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    outline: none;
+    z-index: 10; /* Ensure button is above media */
+}
+.media-item .delete-button:hover {
+    background-color: #dc2626; /* Darker red on hover */
+}
+.message-box {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background-color: #4CAF50; /* Green for success */
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    z-index: 1000;
+    display: none; /* Hidden by default */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.message-box.error {
+    background-color: #ef4444; /* Red for error */
+}
+.message-box.show {
+    display: block;
+    opacity: 1;
+}
+
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+.modal-close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+}
+.modal-close-button:hover {
+    color: #1f2937;
+}

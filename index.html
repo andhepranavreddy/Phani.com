@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Memory Vault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <div id="messageBox" class="message-box"></div>
+
+    <header class="bg-indigo-600 text-white py-4 shadow-md">
+        <div class="container flex justify-between items-center">
+            <h1 class="text-3xl font-bold rounded-lg p-2">My Memory Vault</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#" id="homeLink" class="hover:text-indigo-200 transition duration-300 rounded-md p-2">Home</a></li>
+                </ul>
+            </nav>
+            <div id="authStatus" class="flex items-center space-x-4">
+                <span id="loggedInUser" class="font-semibold"></span>
+                <button id="logoutButton" class="bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out hidden">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container py-8">
+        <div id="authSection" class="page-section hidden flex justify-center items-center min-h-[calc(100vh-16rem)]">
+            <div class="card w-full max-w-md">
+                <h2 id="authTitle" class="text-3xl font-bold text-gray-800 mb-6 text-center">Login</h2>
+                <form id="authForm" class="space-y-4">
+                    <div>
+                        <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                        <input type="text" id="username" name="username" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your username" required>
+                    </div>
+                    <div>
+                        <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+                        <input type="password" id="password" name="password" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your password" required>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button type="submit" id="authSubmitButton" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out">Login</button>
+                        <button type="button" id="toggleAuthModeButton" class="inline-block align-baseline font-bold text-sm text-indigo-500 hover:text-indigo-800">Register instead</button>
+                    </div>
+                    <div class="text-center pt-4">
+                        <button type="button" id="resetPasswordLink" class="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-800">Forgot password?</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="loggedInContent" class="hidden">
+            <div id="homeContent" class="page-section">
+                <section class="card mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Upload Your Media</h2>
+                    <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+                        <input type="file" id="photoInput" accept="image/*" multiple class="hidden">
+                        <label for="photoInput" class="file-input-label">
+                            Choose Photos
+                        </label>
+                        <input type="file" id="videoInput" accept="video/*" multiple class="hidden">
+                        <label for="videoInput" class="file-input-label">
+                            Choose Videos
+                        </label>
+                    </div>
+                    <p class="text-gray-600 mt-4 text-sm text-center">
+                        Supported formats: Images (JPG, PNG, GIF, etc.), Videos (MP4, WebM, Ogg).
+                        Files are stored locally in your browser.
+                    </p>
+                </section>
+
+                <section class="card mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Your Stored Media</h2>
+                    <div id="mediaContainer" class="media-grid">
+                        <p id="noMediaMessage" class="text-gray-500 text-center col-span-full">No media stored yet. Upload some files!</p>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Manage Account & Media</h2>
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 justify-center">
+                        <button id="clearAllButton" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
+                            Clear All Media
+                        </button>
+                    </div>
+                    <p class="text-gray-600 mt-4 text-sm text-center">
+                        This will delete all photos and videos stored under your current account. This action cannot be undone.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
+        <div class="container text-center">
+            <p>&copy; 2025 My Local Media Storage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="resetPasswordModal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close-button" id="closeResetModal">&times;</button>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Reset Password</h2>
+            <form id="resetPasswordForm" class="space-y-4">
+                <div>
+                    <label for="resetUsername" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                    <input type="text" id="resetUsername" name="username" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your username" required>
+                </div>
+                <div>
+                    <label for="currentPassword" class="block text-gray-700 text-sm font-bold mb-2">Current Password:</label>
+                    <input type="password" id="currentPassword" name="currentPassword" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter current password" required>
+                </div>
+                <div>
+                    <label for="newPassword" class="block text-gray-700 text-sm font-bold mb-2">New Password:</label>
+                    <input type="password" id="newPassword" name="newPassword" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter new password" required>
+                </div>
+                <div>
+                    <label for="confirmNewPassword" class="block text-gray-700 text-sm font-bold mb-2">Confirm New Password:</label>
+                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-indigo-500 focus:border-indigo-500" placeholder="Confirm new password" required>
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out">Reset Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
